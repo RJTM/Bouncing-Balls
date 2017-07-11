@@ -22,7 +22,6 @@ class Ball {
                 if (balls[i].doesCollision(balls[j])) {
                     balls[i].velX = -(balls[i].velX);
                     balls[j].velX = -(balls[j].velX);
-                    console.log('collision');
                 }
             }
         }
@@ -36,6 +35,10 @@ class Ball {
     }
 
     update() {
+        if (this.stopped) {
+            return;
+        }
+
         if ((this.x + this.size) >= width) {
             this.velX = -(this.velX);
         }
@@ -51,13 +54,18 @@ class Ball {
         if ((this.y + this.size) >= height) {
             this.velY *= -BOUNCE_FACTOR;
             this.velX *= BOUNCE_FACTOR;
+            this.y = height - this.size;
+
+        }
+
+        if (this.y + this.size + 6 >= height && this.velY > -1.0 && this.velY < 1.0) {
+            this.stop();
+            return;
         }
 
         this.x += this.velX;
         this.y += this.velY;
         this.velY += GRAVITY;
-
-        console.log(this.x, this.y, this.velX, this.velY);
 
     }
 
@@ -67,6 +75,11 @@ class Ball {
         const distance = Math.sqrt(dx*dx + dy*dy);
 
         return distance < this.size + otherBall.size;
+    }
+
+    stop() {
+        this.stopped = true;
+        this.y = height - this.size;
     }
 }
 
