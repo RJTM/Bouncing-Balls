@@ -1,26 +1,42 @@
-const canvas = document.querySelector('canvas');
+const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 
 const height = canvas.height = window.innerHeight;
 const width = canvas.width = window.innerWidth;
+
+context.fillStyle = 'rgba(0,0,0,1)';
+context.fillRect(0,0,width,height);
 
 import { randomNumber } from './util.js';
 import Ball from './Ball/ball.js';
 import './main.scss';
 
 let balls = [];
+let paused = false;
 
 const addBall = function(event) {
     event.stopPropagation();
     event.preventDefault();
-    console.log(event);
     const newBall = new Ball(event.x, event.y, randomNumber(-10,10), -10, 'blue', 10);
     balls.push(newBall);
 }
 
-canvas.addEventListener('mousedown', addBall, false);
+const pause = function(event) {
+    paused = !paused;
+}
+
+canvas.addEventListener('click', addBall, false);
+window.addEventListener('keydown', (event) => {
+    if (event.key === " ") {
+        pause();
+    }
+});
 
 const loop = function() {
+    if (paused) {
+        requestAnimationFrame(loop);
+        return;
+    }
     context.fillStyle = 'rgba(0,0,0,0.25)';
     context.fillRect(0,0,width,height);
     
@@ -33,7 +49,7 @@ const loop = function() {
 
     setTimeout(() => {
         requestAnimationFrame(loop);
-    }, 1000);
+    }, 10);
 
     ///requestAnimationFrame(loop);
 
