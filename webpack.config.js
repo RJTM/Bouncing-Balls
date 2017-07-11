@@ -6,6 +6,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 })
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 let config = {
     entry: './src/index.js',
@@ -53,7 +54,8 @@ let config = {
     },
     plugins: [
         HtmlWebpackPluginConfig,
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new DashboardPlugin()
     ]
 }
 
