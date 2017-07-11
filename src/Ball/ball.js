@@ -16,9 +16,9 @@ class Ball {
 
     static collisionDetect(balls) {
         for (let i=0;i<balls.length-1;i++) {
-            if (balls[i].stopped) continue;
+            //if (balls[i].stopped) continue;
             for (let j=i+1;j<balls.length;j++) {
-                if (balls[j].stopped) continue;
+                //if (balls[j].stopped) continue;
                 if (balls[i].doesCollision(balls[j])) {
                     balls[i].velX = -(balls[i].velX);
                     balls[j].velX = -(balls[j].velX);
