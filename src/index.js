@@ -17,11 +17,11 @@ let paused = false;
 const addBall = function(event) {
     event.stopPropagation();
     event.preventDefault();
-    const newBall = new Ball(event.x, event.y, randomNumber(-10,10), -10, 'blue', 10);
+    const newBall = new Ball(event.x, event.y, randomNumber(-10,10), randomNumber(-10, 10), 'blue', 10);
     balls.push(newBall);
 }
 
-const pause = function(event) {
+const pause = function() {
     paused = !paused;
 }
 
