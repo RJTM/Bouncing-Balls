@@ -1,7 +1,12 @@
 import { GRAVITY, BOUNCE_FACTOR } from '../constants.js';
+import { onResizeUpdate, getWindowSize } from '../util.js';
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+let {width, height} = getWindowSize();
+
+onResizeUpdate((newWidth, newHeight) => {
+    width = newWidth;
+    height = newHeight;
+});
 
 class Ball {
     constructor(x, y, velX, velY, color, size) {

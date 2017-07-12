@@ -1,15 +1,20 @@
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 
-const height = canvas.height = window.innerHeight;
-const width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+let width = canvas.width = window.innerWidth;
 
 context.fillStyle = 'rgba(0,0,0,1)';
 context.fillRect(0,0,width,height);
 
-import { randomNumber } from './util.js';
+import { randomNumber, onResizeUpdate } from './util.js';
 import Ball from './Ball/ball.js';
 import './main.scss';
+
+onResizeUpdate((newWidth, newHeight) => {
+    height = canvas.height = newHeight;
+    width = canvas.width = newWidth;
+});
 
 let balls = [];
 let paused = false;
