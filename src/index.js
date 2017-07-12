@@ -1,63 +1,22 @@
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
-
-let height = canvas.height = window.innerHeight;
-let width = canvas.width = window.innerWidth;
-
-context.fillStyle = 'rgba(0,0,0,1)';
-context.fillRect(0,0,width,height);
-
-import { randomNumber, onResizeUpdate } from './util.js';
+import { randomNumber } from './util.js';
 import Ball from './Ball/ball.js';
+import Canvas from './Canvas/canvas.js';
 import './main.scss';
 
-onResizeUpdate((newWidth, newHeight) => {
-    height = canvas.height = newHeight;
-    width = canvas.width = newWidth;
-});
+const canvasElement = document.getElementById('canvas');
+const canvas = new Canvas(canvasElement);
 
-let balls = [];
-let paused = false;
-
-const addBall = function(event) {
+window.addEventListener('click', (event) => {
     event.stopPropagation();
     event.preventDefault();
     const newBall = new Ball(event.x, event.y, randomNumber(-10,10), randomNumber(-10, 10), 'blue', 10);
-    balls.push(newBall);
-}
+    canvas.addBall(newBall);    
+}, false);
 
-const pause = function() {
-    paused = !paused;
-}
-
-canvas.addEventListener('click', addBall, false);
 window.addEventListener('keydown', (event) => {
     if (event.key === " ") {
-        pause();
+        canvas.pause();
     }
 });
 
-const loop = function() {
-    if (paused) {
-        requestAnimationFrame(loop);
-        return;
-    }
-    context.fillStyle = 'rgba(0,0,0,0.25)';
-    context.fillRect(0,0,width,height);
-    
-    balls.forEach(function(ball) {
-        ball.draw(context);
-        ball.update();
-    });
-
-    Ball.collisionDetect(balls);
-
-    setTimeout(() => {
-        requestAnimationFrame(loop);
-    }, 10);
-
-    ///requestAnimationFrame(loop);
-
-}
-
-loop();
+canvas.loop();
