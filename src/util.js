@@ -20,7 +20,7 @@ const randomNumber = function (min, max) {
  * Calls the function callback on window resize with window width and height as parameters
  * @param  {onResizeUpdateCallback} callback - Function to be called
  */
-const onResizeUpdate = function(callback) {
+const onResizeUpdate = function (callback) {
     window.addEventListener('resize', function () {
         callback(window.innerWidth, window.innerHeight);
     });
@@ -36,4 +36,55 @@ const getWindowSize = function () {
     };
 }
 
-export { randomNumber, onResizeUpdate, getWindowSize };
+/**
+ * @callback onGravityChangeCallback
+ * @param {number} gravity
+ */
+
+
+/**
+ * Calls the function callback on gravity change
+ * @param  {onGravityChangeCallback} callback
+ */
+const onGravityChangeUpdate = function (callback) {
+    document.querySelector('.gravity-control')
+        .addEventListener('change', (event) => {
+            callback(event.target.value);
+        });
+}
+
+/**
+ * @callback onBounceChangeCallback
+ * @param {number} bounce
+ */
+
+
+/**
+ * Calls the function callback on bounce change
+ * @param  {onBounceChangeCallback} callback
+ */
+const onBounceChangeUpdate = function (callback) {
+    document.querySelector('.bounce-control')
+        .addEventListener('change', (event) => {
+            callback(event.target.value);
+        });
+}
+
+/**
+ * @callback onDelayChangeCallback
+ * @param {number} delay
+ */
+
+
+/**
+ * Calls the function callback on delay change
+ * @param  {onDelayChangeCallback} callback
+ */
+const onDelayChangeUpdate = function (callback) {
+    document.querySelector('.delay-control')
+        .addEventListener('change', (event) => {
+            callback(event.target.value);
+        });
+}
+
+export { randomNumber, onResizeUpdate, getWindowSize, onGravityChangeUpdate, onBounceChangeUpdate, onDelayChangeUpdate };

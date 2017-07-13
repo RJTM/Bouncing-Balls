@@ -1,7 +1,16 @@
 import { GRAVITY, BOUNCE_FACTOR } from '../constants.js';
-import { onResizeUpdate, getWindowSize } from '../util.js';
+import { onResizeUpdate, getWindowSize, onGravityChangeUpdate, onBounceChangeUpdate } from '../util.js';
 
 let {width, height} = getWindowSize();
+let gravity = GRAVITY, bounce = BOUNCE_FACTOR;
+
+onGravityChangeUpdate((newGravity) => {
+    gravity = parseFloat(newGravity);
+});
+
+onBounceChangeUpdate((newBounce) => {
+    bounce = newBounce;
+});
 
 onResizeUpdate((newWidth, newHeight) => {
     width = newWidth;
@@ -40,10 +49,12 @@ class Ball {
     }
 
     update() {
+        // Check if the ball should keep moving
         if (this.stopped) {
             return;
         }
 
+        // Check collition on the x axis
         if ((this.x + this.size) >= width) {
             this.velX = -(this.velX);
         }
@@ -52,25 +63,31 @@ class Ball {
             this.velX = -(this.velX);
         }
 
+        // Check collition on the y axis
         if ((this.y - this.size) <= 0) {
             this.velY = -(this.velY);
+            this.y = this.size;
         }
 
         if ((this.y + this.size) >= height) {
-            this.velY *= -BOUNCE_FACTOR;
-            this.velX *= BOUNCE_FACTOR;
+            // If the ball reaches the bottom of the browser window, apply the bouncing factor to 
+            // the Y axis to make the ball bounce and to the X axis to simulate some friction
+            // And lastly reposition the ball to avoid issues
+            this.velY *= -bounce;
+            this.velX *= bounce;
             this.y = height - this.size;
 
         }
 
-        if (this.y + this.size + 6 >= height && this.velY > -1.0 && this.velY < 1.0) {
+        // If the ball is close to the bottom of the window and its speed is low stop it
+        if (this.y + this.size + bounce*10 >= height && this.velY > -(bounce*2) && this.velY < (bounce*2)) {
             this.stop();
             return;
         }
 
         this.x += this.velX;
         this.y += this.velY;
-        this.velY += GRAVITY;
+        this.velY += gravity;
 
     }
 

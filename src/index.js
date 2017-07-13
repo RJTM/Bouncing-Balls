@@ -6,11 +6,17 @@ import './main.scss';
 const canvasElement = document.getElementById('canvas');
 const canvas = new Canvas(canvasElement);
 
-window.addEventListener('click', (event) => {
+const counter = document.querySelector('.ball-number');
+const updateCounter = () => {
+    counter.textContent = canvas.getBallNumber();
+}
+
+canvasElement.addEventListener('click', (event) => {
     event.stopPropagation();
     event.preventDefault();
-    const newBall = new Ball(event.x, event.y, randomNumber(-10,10), randomNumber(-10, 10), 'blue', 10);
+    const newBall = new Ball(event.x, event.y, randomNumber(-10,10), randomNumber(-10, 10), 'gray', 10);
     canvas.addBall(newBall);    
+    updateCounter();
 }, false);
 
 window.addEventListener('keydown', (event) => {
@@ -18,5 +24,10 @@ window.addEventListener('keydown', (event) => {
         canvas.pause();
     }
 });
+
+document.querySelector('.reset-button').onclick = () => {
+    canvas.reset();
+    updateCounter();
+};
 
 canvas.loop();

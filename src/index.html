@@ -3,11 +3,27 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Boucing Balls Challenge</title>
 </head>
 
 <body>
   <canvas id="canvas"></canvas>
+  <div class="controls">
+    <h2>
+      Bouncing Balls Challenge
+    </h2>
+    <p>Balls: <span class="ball-number">0</span></p>
+    <p>Gravity <input class="gravity-control" type="number" value="0.5" step="0.1" min="0" max="1"/></p>
+    <p>Bounce Factor: <input class="bounce-control" type="number" value="0.7" step="0.1" min="0" max="1"/></p>
+    <p>Animation Delay: <input type="number" class="delay-control" value="0" step="100" min="0"/></p>
+    <p>To pause the animation press the <b>space</b> key</p>
+    <button class="reset-button">
+      Reset
+    </button>
+  </div>
+  <div class="credit">
+    by Ricardo Montero
+  </div>
 </body>
 
 </html>
