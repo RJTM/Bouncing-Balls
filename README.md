@@ -5,6 +5,8 @@ Simple playground made with canvas, each clicks spawns a ball and simulates grav
 
 ## Getting Started
 
+You can check out a live version of this repo at this [CodePen](https://codepen.io/rjtm/pen/YQBvzW)
+
 To run this playground follow these steps:
 
 1. Clone this repository or download a zip of it
