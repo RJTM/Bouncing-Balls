@@ -1,12 +1,12 @@
 {
   "name": "yieldify-challange",
   "version": "1.0.0",
-  "description": "Yieldify Bouncing Balls Challange",
+  "description": "Bouncing Balls Challange",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dashboard -- webpack-dev-server -d --hot=true --watch --open=true",
-    "production": "cross-env NODE_ENV=production webpack -p"
+    "production": "cross-env NODE_ENV=production webpack-dashboard -- webpack -p"
   },
   "author": "Ricardo Montero",
   "license": "MIT",
