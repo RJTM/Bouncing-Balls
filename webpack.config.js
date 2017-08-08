@@ -9,15 +9,18 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
 let config = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
+    resolve: {
+        extensions: ['.ts', '.js', '.json']
+    },
     module: {
         loaders: [
+            { test: /\.ts$/, loader: 'awesome-typescript-loader', exclude: '/node_modules/' },
             { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
             { 
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({

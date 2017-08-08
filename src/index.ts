@@ -1,14 +1,14 @@
-import { randomNumber } from './util.js';
-import Ball from './Ball/ball.js';
-import Canvas from './Canvas/canvas.js';
+import { randomNumber } from './util';
+import Ball from './Ball/ball';
+import Canvas from './Canvas/canvas';
 import './main.scss';
 
-const canvasElement = document.getElementById('canvas');
+const canvasElement = <HTMLCanvasElement> document.getElementById('canvas');
 const canvas = new Canvas(canvasElement);
 
 const counter = document.querySelector('.ball-number');
 const updateCounter = () => {
-    counter.textContent = canvas.getBallNumber();
+    counter.textContent = canvas.getBallNumber().toString();
 }
 
 canvasElement.addEventListener('click', (event) => {
@@ -25,9 +25,9 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-document.querySelector('.reset-button').onclick = () => {
+document.querySelector('.reset-button').addEventListener('click', function(event) {
     canvas.reset();
     updateCounter();
-};
+});
 
 canvas.loop();

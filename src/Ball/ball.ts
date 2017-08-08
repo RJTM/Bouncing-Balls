@@ -1,5 +1,5 @@
-import { GRAVITY, BOUNCE_FACTOR } from '../constants.js';
-import { onResizeUpdate, getWindowSize, onGravityChangeUpdate, onBounceChangeUpdate } from '../util.js';
+import { GRAVITY, BOUNCE_FACTOR } from '../constants';
+import { onResizeUpdate, getWindowSize, onGravityChangeUpdate, onBounceChangeUpdate } from '../util';
 
 let {width, height} = getWindowSize();
 let gravity = GRAVITY, bounce = BOUNCE_FACTOR;
@@ -18,17 +18,17 @@ onResizeUpdate((newWidth, newHeight) => {
 });
 
 class Ball {
-    constructor(x, y, velX, velY, color, size) {
-        this.x = x;
-        this.y = y;
-        this.velX = velX;
-        this.velY = velY;
-        this.color = color;
-        this.size = size;
+    private stopped: boolean;
+    constructor(private x: number,
+                private y: number,
+                private velX: number,
+                private velY: number,
+                private color: any , 
+                private size: number) {
         this.stopped = false;
     }
 
-    static collisionDetect(balls) {
+    static collisionDetect(balls: Ball[]) {
         for (let i=0;i<balls.length-1;i++) {
             //if (balls[i].stopped) continue;
             for (let j=i+1;j<balls.length;j++) {
@@ -41,7 +41,7 @@ class Ball {
         }
     }
 
-    draw(context) {
+    draw(context: CanvasRenderingContext2D) {
         context.beginPath();
         context.fillStyle = this.color;
         context.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
@@ -91,7 +91,7 @@ class Ball {
 
     }
 
-    doesCollision(otherBall) {
+    doesCollision(otherBall: Ball) {
         const dx = this.x - otherBall.x;
         const dy = this.y - otherBall.y;
         const distance = Math.sqrt(dx*dx + dy*dy);

@@ -1,8 +1,16 @@
-import { getWindowSize, onResizeUpdate, onDelayChangeUpdate } from '../util.js';
-import Ball from '../Ball/ball.js';
+import { getWindowSize, onResizeUpdate, onDelayChangeUpdate } from '../util';
+import Ball from '../Ball/ball';
 
 class Canvas {
-    constructor(element) {
+    private ctx: CanvasRenderingContext2D;
+    private height: number;
+    private width: number;
+
+    private balls: Ball[] = [];
+    private paused: boolean = false;
+
+    private delay: number = 0;
+    constructor(private element: HTMLCanvasElement) {
         // Get the 2d context from the element
         this.element = element;
         this.ctx = this.element.getContext('2d');
@@ -21,17 +29,12 @@ class Canvas {
             this.width = this.element.width = newWidth;
         });
 
-        this.balls = [];
-        this.paused = false;
-
-        this.delay = 0;
-
         onDelayChangeUpdate((newDelay) => {
             this.delay = newDelay;
         });
     }
 
-    addBall(ball) {
+    addBall(ball: Ball) {
         this.balls.push(ball);
     }
 
