@@ -1,31 +1,31 @@
-import { randomNumber } from './util';
-import Ball from './Ball/ball';
-import Canvas from './Canvas/canvas';
-import './main.scss';
+import Ball from "./Ball/ball";
+import Canvas from "./Canvas/canvas";
+import "./main.scss";
+import { randomNumber } from "./util";
 
-const canvasElement = <HTMLCanvasElement> document.getElementById('canvas');
+const canvasElement = document.getElementById("canvas") as HTMLCanvasElement;
 const canvas = new Canvas(canvasElement);
 
-const counter = document.querySelector('.ball-number');
+const counter = document.querySelector(".ball-number");
 const updateCounter = () => {
     counter.textContent = canvas.getBallNumber().toString();
-}
+};
 
-canvasElement.addEventListener('click', (event) => {
+canvasElement.addEventListener("click", (event) => {
     event.stopPropagation();
     event.preventDefault();
-    const newBall = new Ball(event.x, event.y, randomNumber(-10,10), randomNumber(-10, 10), 'gray', 10);
-    canvas.addBall(newBall);    
+    const newBall = new Ball(event.x, event.y, randomNumber(-10, 10), randomNumber(-10, 10), "gray", 10);
+    canvas.addBall(newBall);
     updateCounter();
 }, false);
 
-window.addEventListener('keydown', (event) => {
+window.addEventListener("keydown", (event) => {
     if (event.key === " ") {
         canvas.pause();
     }
 });
 
-document.querySelector('.reset-button').addEventListener('click', function(event) {
+document.querySelector(".reset-button").addEventListener("click", (event) => {
     canvas.reset();
     updateCounter();
 });
